@@ -16,3 +16,10 @@ jobs:
         extra_nix_config: experimental-features = nix-command flakes
     - run: nix run nixpkgs#bash -- ./release.sh
     - run: ls -la
+    - name: Release
+      if: env.RELEASE == "true"
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ env.RAYCAST_TAG }}
+        body: ${{ env.RAYCAST_NOTE }}
+        files: ${{ env.RAYCAST_FILE }}
