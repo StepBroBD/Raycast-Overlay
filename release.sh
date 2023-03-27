@@ -4,7 +4,7 @@
 set -eo pipefail
 
 old_version="1.48.9"
-new_version=$(curl -s "https://api.github.com/repos/stepbrobd/raycast-overlay/releases?per_page=1" | jq -r '.[0].name')
+new_version=$(curl -s "https://api.github.com/repos/stepbrobd/raycast-overlay/releases?per_page=1" | jq -r ".[0].name")
 if [[ "$new_version" == "$old_version" ]]; then
 	echo "Already up to date"
 	export RELEASE=false
@@ -13,7 +13,7 @@ fi
 
 url=$(curl --silent --location --head --output /dev/null --write-out "%{url_effective}" "https://api.raycast.app/v2/download")
 version=$(echo "$url" | sed -n "s/.*Raycast_v\([^_]*\)_.*\.dmg.*/\1/p")
-sha256=$(nix --extra-experimental-features nix-command store prefetch-file --json --name "raycast-$version" --hash-type sha256 "$url" | jq ".hash")
+sha256=$(nix --extra-experimental-features nix-command store prefetch-file --json --name "raycast-$version" --hash-type sha256 "$url" | jq -r ".hash")
 
 curl --silent --output "raycast-$version.dmg" $url
 
