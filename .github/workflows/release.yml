@@ -17,7 +17,7 @@ jobs:
     - run: nix run nixpkgs#bash -- ./release.sh
     - run: ls -la
     - name: Release
-      if: env.RELEASE == "true"
+      if: env.RELEASE == 'true'
       uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ env.RAYCAST_TAG }}
