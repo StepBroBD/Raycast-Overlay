@@ -1,0 +1,28 @@
+name: Release
+
+permissions:
+  contents: write
+
+on:
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+  
+jobs:
+  Release:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3.5.0
+    - uses: cachix/install-nix-action@v20
+      with:
+        nix_path: nixpkgs=channel:nixpkgs-unstable
+        extra_nix_config: experimental-features = nix-command flakes
+    - name: "Release to Internet Archive"
+      run: nix run nixpkgs#bash -- ./release.sh
+    - name: "Update Raycast Version"
+      if: ${{ env.RELEASE == 1 }}
+      run: |
+        git config user.name "github-actions"
+        git config user.email "action@github.com"
+        git add release.sh && git commit -m "${{ env.NOTE }}"
+        git push
