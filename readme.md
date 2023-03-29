@@ -4,6 +4,12 @@
 
 This repo is intended for providing a "stable" URL for Raycast to be used on [nixpkgs](https://github.com/nixos/nixpkgs), it can be also used as an Overlay for getting the latest release.
 
+## Setup
+
+To run the GitHub Action, you'll need Internet Archive's S3-like API keys which can be obtained here: <https://archive.org/account/s3.php>.
+
+Set `ACCESS` and `SECRET` in your repo settings.
+
 ## Why Bother?
 
 Raycast's official download API (https://api.raycast.app/v2/download) returns an AWS CloudFront signed URL with a expiration timestamp and signature [^1].
