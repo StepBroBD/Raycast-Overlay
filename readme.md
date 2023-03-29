@@ -4,6 +4,10 @@
 
 This repo is intended for providing a "stable" URL for Raycast to be used on [nixpkgs](https://github.com/nixos/nixpkgs), it can be also used as an Overlay for getting the latest release.
 
+For all other use cases, please refer to [Raycast official website](https://www.raycast.com).
+
+Disclaimer: No copyright infringement intended, softwares and source codes belong to the rightful owners. 
+
 ## Setup
 
 To run the GitHub Action, you'll need Internet Archive's username and password.
