@@ -1,8 +1,5 @@
 name: Release
 
-permissions:
-  contents: write
-
 on:
   schedule:
     - cron: "0 8 * * *"
@@ -18,11 +15,12 @@ jobs:
         nix_path: nixpkgs=channel:nixpkgs-unstable
         extra_nix_config: experimental-features = nix-command flakes
     - name: "Release to Internet Archive"
-      run: nix run nixpkgs#bash -- ./release.sh
-    - name: "Update Raycast Version"
-      if: ${{ env.RELEASE == 1 }}
+      run: ./update.sh
+    - name: Commit and Push
+      if: ${{ env.PUSH== 'true' }}
       run: |
-        git config user.name "github-actions"
-        git config user.email "action@github.com"
-        git add release.sh && git commit -m "${{ env.NOTE }}"
+        git config --global user.name "GitHub Action"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add update.sh
+        git commit -m "GitHub Action: Raycast version update"
         git push
