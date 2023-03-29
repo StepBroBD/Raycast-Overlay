@@ -6,9 +6,11 @@ This repo is intended for providing a "stable" URL for Raycast to be used on [ni
 
 ## Setup
 
-To run the GitHub Action, you'll need Internet Archive's S3-like API keys which can be obtained here: <https://archive.org/account/s3.php>.
+To run the GitHub Action, you'll need Internet Archive's username and password.
 
-Set `ACCESS` and `SECRET` in your repo settings.
+Set `USERNAME` and `PASSWORD` in your repo settings.
+
+The GitHub Action will use your username and password to call `ia configure --username="$USERNAME" --password="PASSWORD"`.
 
 ## Why Bother?
 
