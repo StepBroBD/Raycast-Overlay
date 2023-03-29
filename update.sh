@@ -17,6 +17,7 @@ else
 	echo "Update available: $old_version -> $new_version"
 fi
 
+printenv
 ia configure --username="$USERNAME" --password="$PASSWORD"
 ia upload raycast "raycast-$new_version.dmg" --metadata="mediatype:software"
 rm -f "raycast-$new_version.dmg"
