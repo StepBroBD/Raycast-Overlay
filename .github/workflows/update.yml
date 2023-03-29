@@ -15,6 +15,9 @@ jobs:
         nix_path: nixpkgs=channel:nixpkgs-unstable
         extra_nix_config: experimental-features = nix-command flakes
     - name: "Release to Internet Archive"
+      env:
+        USERNAME: ${{ secrets.USERNAME }}
+        PASSWORD: ${{ secrets.PASSWORD }}
       run: ./update.sh
     - name: Commit and Push
       if: ${{ env.PUSH== 'true' }}
