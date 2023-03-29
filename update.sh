@@ -23,7 +23,7 @@ echo "[s3]" >>"$HOME/.config/internetarchive/ia.ini"
 echo "access = $ACCESS" >>"$HOME/.config/internetarchive/ia.ini"
 echo "secret = $SECRET" >>"$HOME/.config/internetarchive/ia.ini"
 
-ia upload raycast "raycast-$new_version.dmg" --metadata="mediatype:software"
+IA_CONFIG_FILE="$HOME/.config/internetarchive/ia.ini" ia upload raycast "raycast-$new_version.dmg" --metadata="mediatype:software"
 rm -rf "$HOME/.config/internetarchive" "raycast-$new_version.dmg"
 
 sed -Ei.bak '6s/( *old_version=")[^"]+/\1'"$new_version"'/' update.sh
