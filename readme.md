@@ -29,8 +29,8 @@ src = fetchurl {
   url = "https://archive.org/download/raycast/raycast-1.48.9.dmg";
   sha256 = "sha256-PSK/PLIOLUrqHAvEfOVMuGojLjwrCR4Vm9okE9d/5dE=";
 };
+```
 
 ## Overlay
-
 
 TODO
