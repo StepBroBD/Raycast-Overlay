@@ -17,15 +17,9 @@ else
 	echo "Update available: $old_version -> $new_version"
 fi
 
-rm -rf "$HOME/.config/internetarchive"
-mkdir -p "$HOME/.config/internetarchive"
-echo "[s3]" >>"$HOME/.config/internetarchive/ia.ini"
-echo "access = $ACCESS" >>"$HOME/.config/internetarchive/ia.ini"
-echo "secret = $SECRET" >>"$HOME/.config/internetarchive/ia.ini"
-
-export IA_CONFIG_FILE="$HOME/.config/internetarchive/ia.ini"
+ia configure --username="$USERNAME" --password="$PASSWORD"
 ia upload raycast "raycast-$new_version.dmg" --metadata="mediatype:software"
-rm -rf "$HOME/.config/internetarchive" "raycast-$new_version.dmg"
+rm -f "raycast-$new_version.dmg"
 
 sed -Ei.bak '6s/( *old_version=")[^"]+/\1'"$new_version"'/' update.sh
 rm update.sh.bak
