@@ -3,7 +3,7 @@
 
 set -eo pipefail
 
-old_version="1.49.1"
+old_version="0.0.0"
 
 origin_url=$(curl --silent --location --head --output /dev/null --write-out "%{url_effective}" "https://api.raycast.app/v2/download")
 new_version=$(echo "$origin_url" | sed -n "s/.*Raycast_v\([^_]*\)_.*\.dmg.*/\1/p")
@@ -24,4 +24,5 @@ rm -f "raycast-$new_version.dmg"
 sed -Ei.bak '6s/( *old_version=")[^"]+/\1'"$new_version"'/' update.sh
 rm update.sh.bak
 
+echo "TAG=$new_version" >>$GITHUB_ENV
 echo "PUSH=true" >>$GITHUB_ENV
