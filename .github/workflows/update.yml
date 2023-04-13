@@ -9,7 +9,7 @@ jobs:
   Release:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v3.5.0
+    - uses: actions/checkout@v3.5.1
     - uses: cachix/install-nix-action@v20
       with:
         nix_path: nixpkgs=channel:nixpkgs-unstable
