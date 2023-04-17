@@ -45,4 +45,27 @@ src = fetchurl {
 
 ## Overlay
 
-TODO
+For those who uses Nix Flake:
+
+1. Add `raycast-overlay.url = "github:stepbrobd/raycast-overlay";` to `inputs`.
+
+```nix
+inputs = {
+  nixpkgs.url = "flake:nixpkgs/nixpkgs-unstable";
+  ...
+  raycast-overlay.url = "github:stepbrobd/raycast-overlay";
+  ...
+};
+```
+
+2. Then add to `overlays`:
+
+```nix
+overlays = [
+  ...
+  (self: super: {
+    raycast = inputs.raycast-overlay.packages.${super.system}.raycast;
+  })
+  ...
+];
+```
