@@ -3,17 +3,41 @@
 
   inputs = {
     nixpkgs.url = "flake:nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "flake:flake-utils";
   };
 
-  outputs = { self, nixpkgs, ... }:
-    let forAllSystems = (nixpkgs.lib.genAttrs [ "aarch64-darwin" "x86_64-darwin" ]); in
-    {
-      packages = forAllSystems (system: rec{
-        raycast = { };
-      });
-      defaultPackage = forAllSystems (system: self.packages.${system}.default);
-      overlay = final: prev: {
-        raycast = self.packages.${prev.system}.raycast;
-      };
-    };
+  outputs =
+    { self
+    , nixpkgs
+    , flake-utils
+    , ...
+    }: flake-utils.lib.eachSystem [
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ]
+      (system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [
+            (self: super: {
+              raycast = super.raycast.overrideAttrs (old: {
+                pname = "raycast";
+                src = builtins.fetchurl {
+                  url = "https://archive.org/download/raycast/raycast-0.0.0.dmg";
+                  sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+                };
+              });
+            })
+          ];
+        };
+      in
+      {
+        packages = flake-utils.lib.flattenTree ({
+          raycast = pkgs.raycast;
+        });
+        defaultPackage = self.packages.${system}.raycast;
+      }
+      );
 }

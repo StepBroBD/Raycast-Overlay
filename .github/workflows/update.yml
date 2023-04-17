@@ -25,9 +25,8 @@ jobs:
         git config --global user.name "GitHub Action"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global push.followTags true
-        git add update.sh
+        git add update.sh flake.nix
         git commit -m "GitHub Action: Raycast version update: ${{ env.TAG }}"
         git push
         git tag ${{ env.TAG }}
         git push origin ${{ env.TAG }}
-
