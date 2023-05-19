@@ -25,8 +25,8 @@
               raycast = super.raycast.overrideAttrs (old: {
                 pname = "raycast";
                 src = builtins.fetchurl {
-                  url = "https://archive.org/download/raycast/raycast-1.51.1.dmg";
-                  sha256 = "sha256-6U0dsDlIuU4OjgF8lvXbtVQ+xFB54KZpasvd307jca4=";
+                  url = "https://archive.org/download/raycast/raycast-1.51.3.dmg";
+                  sha256 = "sha256-JvjFTYtvv9eT++cL+ykGors0w6PnuRM50CL3YzRUW84=";
                 };
               });
             })
