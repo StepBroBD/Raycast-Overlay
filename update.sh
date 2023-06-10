@@ -19,6 +19,7 @@ fi
 
 ia configure --username="$USERNAME" --password="$PASSWORD"
 ia upload raycast "raycast-$new_version.dmg" --metadata="mediatype:software"
+sleep 10
 rm -f "raycast-$new_version.dmg"
 
 sed -Ei.bak '6s/( *old_version=")[^"]+/\1'"$new_version"'/' update.sh
