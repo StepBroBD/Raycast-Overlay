@@ -3,15 +3,15 @@
 
   inputs = {
     nixpkgs.url = "flake:nixpkgs/nixpkgs-unstable";
-    flake-utils.url = "flake:flake-utils";
+    utils.url = "flake:flake-utils";
   };
 
   outputs =
     { self
     , nixpkgs
-    , flake-utils
+    , utils
     , ...
-    }: flake-utils.lib.eachSystem [
+    }: utils.lib.eachSystem [
       "aarch64-darwin"
       "x86_64-darwin"
     ]
@@ -34,7 +34,7 @@
         };
       in
       {
-        packages = flake-utils.lib.flattenTree ({
+        packages = utils.lib.flattenTree ({
           raycast = pkgs.raycast;
         });
         defaultPackage = self.packages.${system}.raycast;
