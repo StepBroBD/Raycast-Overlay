@@ -4,29 +4,26 @@ on:
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
-  
+
 jobs:
   Release:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3.5.3
-    - uses: cachix/install-nix-action@v21
-      with:
-        nix_path: nixpkgs=channel:nixpkgs-unstable
-        extra_nix_config: experimental-features = nix-command flakes
-    - name: "Release to Internet Archive"
-      env:
-        USERNAME: ${{ secrets.USERNAME }}
-        PASSWORD: ${{ secrets.PASSWORD }}
-      run: ./update.sh
-    - name: Commit and Push
-      if: ${{ env.PUSH== 'true' }}
-      run: |
-        git config --global user.name "GitHub Action"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git config --global push.followTags true
-        git add update.sh flake.nix
-        git commit -m "GitHub Action: Raycast version update: ${{ env.TAG }}"
-        git push
-        git tag ${{ env.TAG }}
-        git push origin ${{ env.TAG }}
+      - uses: actions/checkout@v3.5.3
+      - uses: cachix/install-nix-action@v21
+        with:
+          nix_path: nixpkgs=channel:nixpkgs-unstable
+          extra_nix_config: experimental-features = nix-command flakes
+      - name: "Update"
+        run: ./update.sh
+      - name: Commit and Push
+        if: ${{ env.PUSH == 'true' }}
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global push.followTags true
+          git add update.sh flake.nix
+          git commit -m "GitHub Action: Raycast version update: ${{ env.TAG }}"
+          git push
+          git tag ${{ env.TAG }}
+          git push origin ${{ env.TAG }}
