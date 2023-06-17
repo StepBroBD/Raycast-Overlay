@@ -23,11 +23,11 @@
           overlays = [
             (self: super: {
               raycast = super.raycast.overrideAttrs (old: {
-                name = "raycast-1.53.3";
+                name = "raycast-1.53.4";
                 src = super.fetchurl {
                   name = "Raycast.dmg";
-                  url = "https://releases.raycast.com/releases/1.53.3/download?build=universal";
-                  sha256 = "sha256-FHCNySTtP7Dxa2UAlYoHD4u5ammLuhOQKC3NGpxcyYo=";
+                  url = "https://releases.raycast.com/releases/1.53.4/download?build=universal";
+                  sha256 = "sha256-bkNlGHCpYnHlKdzDyKGPF5jnoq2cSe1sdg9W2DwVrWc=";
                 };
               });
             })
